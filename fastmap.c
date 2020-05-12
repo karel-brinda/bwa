@@ -410,6 +410,9 @@ int main_fastmap(int argc, char *argv[])
 	if ((idx = bwa_idx_load(argv[optind], BWA_IDX_BWT|BWA_IDX_BNS)) == 0) return 1;
 	itr = smem_itr_init(idx->bwt);
 	smem_config(itr, min_intv, max_len, max_intv);
+
+	double t_real_matching = realtime();
+
 	while (kseq_read(seq) >= 0) {
 		err_printf("SQ\t%s\t%ld", seq->name.s, seq->seq.l);
 		if (print_seq) {
@@ -440,6 +443,8 @@ int main_fastmap(int argc, char *argv[])
 		}
 		err_puts("//");
 	}
+
+	fprintf(stderr, "\n[%s] fastmap matching: Real time: %.3f sec; CPU: %.3f sec\n", __func__, realtime() - t_real_matching, cputime());
 
 	smem_itr_destroy(itr);
 	bwa_idx_destroy(idx);
