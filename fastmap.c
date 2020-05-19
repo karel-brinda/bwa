@@ -444,7 +444,7 @@ int main_fastmap(int argc, char *argv[])
 		err_puts("//");
 	}
 
-	fprintf(stderr, "\n[%s] fastmap matching: Real time: %.3f sec; CPU: %.3f sec\n", __func__, realtime() - t_real_matching, cputime());
+	fprintf(stderr, "\n[%s] fastmap matching: Real time: %.3f sec\n", __func__, realtime() - t_real_matching);
 
 	smem_itr_destroy(itr);
 	bwa_idx_destroy(idx);
